@@ -67,11 +67,13 @@ public class RideService {
 
             double distance = Math.sqrt( ((x2-x1)*(x2-x1)) + ((y2-y1)*(y2-y1)) );
 
-            System.out.println("distance: "+ distance   );
-            if(distance <= 5) {
+//            System.out.println("distance: "+ distance   );
+            if(distance <= 5 && driver.isAvailable()) {
                 Long rideId = SequenceIdGenerator.generateId(ridesList.size());
                 User userObj = userRepository.findByUserId(userDetails.getUserId());
                 ridesList.add(new Ride(rideId, userObj, driver, sourceLocation, destinatioLocation));
+            } else {
+                System.out.println("Driver is not available for: "+ userName +" Location (" +x1 +" y1: "+y1 +")");
             }
         }
 
